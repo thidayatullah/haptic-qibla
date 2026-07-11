@@ -3,27 +3,148 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Haptic Qibla</title>
-  <meta name="description" content="Find the direction to the Ka'bah with haptic pulses, rising audio tones, and VoiceOver guidance.">
+  <title>Haptic Qibla — Find Qibla with Haptic &amp; Audio Guidance</title>
+  <meta name="description" content="Find the direction to the Ka'bah without relying on sight. Haptic pulses, rising audio tones, and VoiceOver guide you there. Free, offline, no ads.">
+  <meta property="og:title" content="Haptic Qibla">
+  <meta property="og:description" content="Feel when you're facing Qibla. Haptic pulses, rising audio, and VoiceOver guidance — built for accessibility.">
+  <meta property="og:image" content="assets/app-icon.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/app-icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/app-icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <nav class="site-nav" aria-label="Main">
+    <a class="brand" href="index.html">
+      <img src="assets/app-icon.png" alt="" width="32" height="32">
+      Haptic Qibla
+    </a>
+    <div class="nav-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </div>
+  </nav>
+
   <main class="page">
     <header class="hero">
-      <p class="eyebrow">iOS App</p>
-      <h1>Haptic Qibla</h1>
-      <p class="lead">Find the direction to the Ka'bah without relying on sight — haptic pulses, rising audio tones, and VoiceOver guide you there.</p>
+      <div class="hero-content">
+        <img class="hero-icon" src="assets/app-icon.png" alt="Haptic Qibla app icon" width="88" height="88">
+        <p class="eyebrow">iOS App</p>
+        <h1>Feel when you&rsquo;re facing Qibla</h1>
+        <p class="lead">
+          Find the direction to the Ka&rsquo;bah without relying on sight.
+          Haptic pulses speed up and audio tones rise as you get closer &mdash;
+          with full VoiceOver support.
+        </p>
+        <div class="hero-badges">
+          <span class="badge">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1a9 9 0 1 0 0 18A9 9 0 0 0 10 1zm4.2 6.8-5.5 5.5a.8.8 0 0 1-1.1 0l-2.5-2.5a.8.8 0 1 1 1.1-1.1l1.9 1.9 5-5a.8.8 0 1 1 1.1 1.2z"/></svg>
+            100% Free
+          </span>
+          <span class="badge">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1a9 9 0 1 0 0 18A9 9 0 0 0 10 1zm4.2 6.8-5.5 5.5a.8.8 0 0 1-1.1 0l-2.5-2.5a.8.8 0 1 1 1.1-1.1l1.9 1.9 5-5a.8.8 0 1 1 1.1 1.2z"/></svg>
+            No Ads
+          </span>
+          <span class="badge">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1a9 9 0 1 0 0 18A9 9 0 0 0 10 1zm4.2 6.8-5.5 5.5a.8.8 0 0 1-1.1 0l-2.5-2.5a.8.8 0 1 1 1.1-1.1l1.9 1.9 5-5a.8.8 0 1 1 1.1 1.2z"/></svg>
+            Works Offline
+          </span>
+          <span class="badge">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1a9 9 0 1 0 0 18A9 9 0 0 0 10 1zm4.2 6.8-5.5 5.5a.8.8 0 0 1-1.1 0l-2.5-2.5a.8.8 0 1 1 1.1-1.1l1.9 1.9 5-5a.8.8 0 1 1 1.1 1.2z"/></svg>
+            No Tracking
+          </span>
+        </div>
+        <div class="hero-cta">
+          <!-- Replace # with your App Store URL when available -->
+          <a class="app-store-badge" href="#" aria-label="Download on the App Store">
+            <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="250" height="83" loading="lazy">
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/screenshot-aligned.png" alt="Haptic Qibla showing Qibla aligned at 0 degrees with compass overlay on camera view" width="320" height="693" loading="eager">
+      </div>
     </header>
 
-    <nav class="links" aria-label="Site">
+    <section class="section" aria-labelledby="features-heading">
+      <div class="section-header">
+        <h2 id="features-heading">Built for everyone</h2>
+        <p>Created with visually impaired people in mind. Sensory guidance that works whether you can see the screen or not.</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+          </div>
+          <h3>Haptic Guidance</h3>
+          <p>Proximity pulses speed up as you rotate toward Qibla, with a success pattern when aligned.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          </div>
+          <h3>Rising Audio</h3>
+          <p>Audio tones rise in pitch as you get closer. Respects your device&rsquo;s silent switch.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm7 9a7 7 0 0 1-14 0H3a9 9 0 0 0 18 0h-2z"/></svg>
+          </div>
+          <h3>VoiceOver</h3>
+          <p>Full accessibility support. Announces direction, degrees, and alignment progress automatically.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 16.5l-4-4 1.41-1.41L11 14.67l5.59-5.59L18 10.5l-7 7z"/></svg>
+          </div>
+          <h3>Private &amp; Offline</h3>
+          <p>Location stays on your device. No accounts, no analytics, no data collection.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="screenshots-heading">
+      <div class="section-header">
+        <h2 id="screenshots-heading">See it in action</h2>
+        <p>Live camera preview, compass overlay, and clear directional cues &mdash; all configurable in Settings.</p>
+      </div>
+      <div class="screenshots">
+        <figure class="screenshot-card">
+          <img src="assets/screenshot-turn-right.png" alt="Turn right 8 degrees toward Qibla with compass ring overlay" width="390" height="844" loading="lazy">
+        </figure>
+        <figure class="screenshot-card">
+          <img src="assets/screenshot-aligned.png" alt="Qibla aligned at 0 degrees with success indicator" width="390" height="844" loading="lazy">
+        </figure>
+        <figure class="screenshot-card">
+          <img src="assets/screenshot-onboarding.png" alt="Onboarding screen explaining sensory guidance and permissions" width="390" height="844" loading="lazy">
+        </figure>
+        <figure class="screenshot-card">
+          <img src="assets/screenshot-accessibility.png" alt="Built for everyone — free, no ads, no tracking" width="390" height="844" loading="lazy">
+        </figure>
+        <figure class="screenshot-card">
+          <img src="assets/screenshot-settings.png" alt="Settings for haptic guidance, audio guidance, and location" width="390" height="844" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <section class="cta-banner" aria-labelledby="cta-heading">
+      <h2 id="cta-heading">Start aligning today</h2>
+      <p>Free on the App Store. No ads. No tracking. Your data stays on your device.</p>
+      <a class="app-store-badge" href="#" aria-label="Download on the App Store">
+        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="250" height="83" loading="lazy">
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Haptic Qibla</p>
+    <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="support.html">Support</a>
-    </nav>
+      <a href="mailto:unlockedmagicapp@gmail.com">Contact</a>
+    </div>
+  </footer>
 
-    <footer class="footer">
-      <p>&copy; <span id="year"></span> Haptic Qibla</p>
-    </footer>
-  </main>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

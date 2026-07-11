@@ -5,10 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy Policy — Haptic Qibla</title>
   <meta name="description" content="Privacy Policy for the Haptic Qibla iOS app.">
+  <link rel="icon" href="assets/app-icon.png" type="image/png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="page">
+  <nav class="site-nav" aria-label="Main">
+    <a class="brand" href="index.html">
+      <img src="assets/app-icon.png" alt="" width="32" height="32">
+      Haptic Qibla
+    </a>
+    <div class="nav-links">
+      <a href="privacy.html" aria-current="page">Privacy</a>
+      <a href="support.html">Support</a>
+    </div>
+  </nav>
+
+  <main class="page page-narrow">
     <header class="hero compact">
       <p class="eyebrow"><a href="index.html">Haptic Qibla</a></p>
       <h1>Privacy Policy</h1>
@@ -106,9 +118,16 @@
       </p>
     </article>
 
-    <footer class="footer">
-      <p><a href="index.html">Home</a> · <a href="support.html">Support</a></p>
-    </footer>
   </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Haptic Qibla</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="mailto:unlockedmagicapp@gmail.com">Contact</a>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

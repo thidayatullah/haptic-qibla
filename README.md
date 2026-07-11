@@ -27,7 +27,7 @@ From the **QiblaFinder** project root:
 ```bash
 cd website
 git init
-git add index.html privacy.html support.html style.css
+git add index.html privacy.html support.html style.css assets/
 git commit -m "Initial Haptic Qibla website"
 git branch -M main
 git remote add origin git@github.com:thidayatullah/haptic-qibla.git
