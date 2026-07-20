@@ -103,27 +103,40 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="screenshots-heading">
+    <section class="section section-screenshots" aria-labelledby="screenshots-heading">
       <div class="section-header">
         <h2 id="screenshots-heading">See it in action</h2>
-        <p>Live camera preview, compass overlay, and clear directional cues &mdash; all configurable in Settings.</p>
+        <p>Live camera preview, compass overlay, and clear directional cues &mdash; all configurable in Settings. Tap any screenshot to enlarge.</p>
       </div>
-      <div class="screenshots">
-        <figure class="screenshot-card">
-          <img src="assets/screenshot-turn-right.png" alt="Turn right 8 degrees toward Qibla with compass ring overlay" width="390" height="844" loading="lazy">
-        </figure>
-        <figure class="screenshot-card">
-          <img src="assets/screenshot-aligned.png" alt="Qibla aligned at 0 degrees with success indicator" width="390" height="844" loading="lazy">
-        </figure>
-        <figure class="screenshot-card">
-          <img src="assets/screenshot-onboarding.png" alt="Onboarding screen explaining sensory guidance and permissions" width="390" height="844" loading="lazy">
-        </figure>
-        <figure class="screenshot-card">
-          <img src="assets/screenshot-accessibility.png" alt="Built for everyone — free, no ads, no tracking" width="390" height="844" loading="lazy">
-        </figure>
-        <figure class="screenshot-card">
-          <img src="assets/screenshot-settings.png" alt="Settings for haptic guidance, audio guidance, and location" width="390" height="844" loading="lazy">
-        </figure>
+
+      <div class="carousel" data-carousel>
+        <button type="button" class="carousel-btn carousel-btn-prev" data-carousel-prev aria-label="Previous screenshot">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
+        </button>
+
+        <div class="carousel-track" data-carousel-track tabindex="0" role="list" aria-label="App screenshots">
+          <button type="button" class="carousel-slide" role="listitem" data-lightbox-trigger data-index="0" aria-label="Enlarge: Turn right toward Qibla">
+            <img src="assets/screenshot-turn-right.png" alt="Turn right 8 degrees toward Qibla with compass ring overlay" width="390" height="844" loading="lazy" draggable="false">
+          </button>
+          <button type="button" class="carousel-slide" role="listitem" data-lightbox-trigger data-index="1" aria-label="Enlarge: Qibla aligned">
+            <img src="assets/screenshot-aligned.png" alt="Qibla aligned at 0 degrees with success indicator" width="390" height="844" loading="lazy" draggable="false">
+          </button>
+          <button type="button" class="carousel-slide" role="listitem" data-lightbox-trigger data-index="2" aria-label="Enlarge: Sensory guidance onboarding">
+            <img src="assets/screenshot-onboarding.png" alt="Onboarding screen explaining sensory guidance and permissions" width="390" height="844" loading="lazy" draggable="false">
+          </button>
+          <button type="button" class="carousel-slide" role="listitem" data-lightbox-trigger data-index="3" aria-label="Enlarge: Built for accessibility">
+            <img src="assets/screenshot-accessibility.png" alt="Built for everyone — free, no ads, no tracking" width="390" height="844" loading="lazy" draggable="false">
+          </button>
+          <button type="button" class="carousel-slide" role="listitem" data-lightbox-trigger data-index="4" aria-label="Enlarge: Settings">
+            <img src="assets/screenshot-settings.png" alt="Settings for haptic guidance, audio guidance, and location" width="390" height="844" loading="lazy" draggable="false">
+          </button>
+        </div>
+
+        <button type="button" class="carousel-btn carousel-btn-next" data-carousel-next aria-label="Next screenshot">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4L13.2 12z"/></svg>
+        </button>
+
+        <div class="carousel-dots" data-carousel-dots role="tablist" aria-label="Screenshot pages"></div>
       </div>
     </section>
 
@@ -145,6 +158,132 @@
     </div>
   </footer>
 
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <dialog class="lightbox" data-lightbox aria-label="Screenshot viewer">
+    <button type="button" class="lightbox-close" data-lightbox-close aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>
+    </button>
+    <button type="button" class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Previous screenshot">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
+    </button>
+    <img data-lightbox-image src="" alt="">
+    <button type="button" class="lightbox-nav lightbox-next" data-lightbox-next aria-label="Next screenshot">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4L13.2 12z"/></svg>
+    </button>
+  </dialog>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var carousel = document.querySelector("[data-carousel]");
+      if (!carousel) return;
+
+      var track = carousel.querySelector("[data-carousel-track]");
+      var slides = Array.prototype.slice.call(track.querySelectorAll(".carousel-slide"));
+      var prevBtn = carousel.querySelector("[data-carousel-prev]");
+      var nextBtn = carousel.querySelector("[data-carousel-next]");
+      var dotsWrap = carousel.querySelector("[data-carousel-dots]");
+      var lightbox = document.querySelector("[data-lightbox]");
+      var lightboxImg = lightbox.querySelector("[data-lightbox-image]");
+      var activeIndex = 0;
+
+      slides.forEach(function (_, i) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "carousel-dot";
+        dot.setAttribute("role", "tab");
+        dot.setAttribute("aria-label", "Go to screenshot " + (i + 1));
+        dot.addEventListener("click", function () { scrollToIndex(i); });
+        dotsWrap.appendChild(dot);
+      });
+
+      var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll(".carousel-dot"));
+
+      function slideWidth() {
+        return slides[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap || 0);
+      }
+
+      function scrollToIndex(index) {
+        index = Math.max(0, Math.min(slides.length - 1, index));
+        track.scrollTo({ left: slideWidth() * index, behavior: "smooth" });
+      }
+
+      function updateActive() {
+        var index = Math.round(track.scrollLeft / slideWidth());
+        index = Math.max(0, Math.min(slides.length - 1, index));
+        activeIndex = index;
+        dots.forEach(function (dot, i) {
+          dot.classList.toggle("is-active", i === index);
+          dot.setAttribute("aria-selected", i === index ? "true" : "false");
+        });
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === slides.length - 1;
+      }
+
+      prevBtn.addEventListener("click", function () { scrollToIndex(activeIndex - 1); });
+      nextBtn.addEventListener("click", function () { scrollToIndex(activeIndex + 1); });
+      track.addEventListener("scroll", function () {
+        window.requestAnimationFrame(updateActive);
+      }, { passive: true });
+      window.addEventListener("resize", updateActive);
+      updateActive();
+
+      function openLightbox(index) {
+        activeIndex = index;
+        var img = slides[index].querySelector("img");
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt;
+        if (typeof lightbox.showModal === "function") {
+          lightbox.showModal();
+        } else {
+          lightbox.setAttribute("open", "");
+        }
+        document.documentElement.classList.add("lightbox-open");
+      }
+
+      function closeLightbox() {
+        if (typeof lightbox.close === "function") {
+          lightbox.close();
+        } else {
+          lightbox.removeAttribute("open");
+        }
+        document.documentElement.classList.remove("lightbox-open");
+      }
+
+      function showLightboxIndex(index) {
+        index = (index + slides.length) % slides.length;
+        activeIndex = index;
+        var img = slides[index].querySelector("img");
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt;
+        scrollToIndex(index);
+      }
+
+      slides.forEach(function (slide) {
+        slide.addEventListener("click", function () {
+          openLightbox(Number(slide.getAttribute("data-index")));
+        });
+      });
+
+      lightbox.querySelector("[data-lightbox-close]").addEventListener("click", closeLightbox);
+      lightbox.querySelector("[data-lightbox-prev]").addEventListener("click", function () {
+        showLightboxIndex(activeIndex - 1);
+      });
+      lightbox.querySelector("[data-lightbox-next]").addEventListener("click", function () {
+        showLightboxIndex(activeIndex + 1);
+      });
+      lightbox.addEventListener("click", function (event) {
+        if (event.target === lightbox) closeLightbox();
+      });
+      lightbox.addEventListener("close", function () {
+        document.documentElement.classList.remove("lightbox-open");
+      });
+      document.addEventListener("keydown", function (event) {
+        if (!lightbox.open) return;
+        if (event.key === "ArrowLeft") showLightboxIndex(activeIndex - 1);
+        if (event.key === "ArrowRight") showLightboxIndex(activeIndex + 1);
+      });
+    })();
+  </script>
 </body>
 </html>
