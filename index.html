@@ -186,6 +186,8 @@
       var lightbox = document.querySelector("[data-lightbox]");
       var lightboxImg = lightbox.querySelector("[data-lightbox-image]");
       var activeIndex = 0;
+      var lightboxRequestId = 0;
+      var slidePointerState = new WeakMap();
 
       slides.forEach(function (_, i) {
         var dot = document.createElement("button");
@@ -228,17 +230,71 @@
       window.addEventListener("resize", updateActive);
       updateActive();
 
-      function openLightbox(index) {
-        activeIndex = index;
+      function resolveSlideImage(index) {
         var img = slides[index].querySelector("img");
-        lightboxImg.src = img.currentSrc || img.src;
-        lightboxImg.alt = img.alt;
+        return {
+          alt: img.alt,
+          src: img.currentSrc || img.src || img.getAttribute("src") || ""
+        };
+      }
+
+      function preloadImage(src, callback) {
+        var preloader = new Image();
+        var isDone = false;
+
+        function finish(success) {
+          if (isDone) return;
+          isDone = true;
+          callback(success);
+        }
+
+        if (!src) {
+          finish(false);
+          return;
+        }
+
+        preloader.onload = function () { finish(true); };
+        preloader.onerror = function () { finish(false); };
+        preloader.src = src;
+
+        if (preloader.complete) {
+          finish(preloader.naturalWidth > 0);
+        }
+      }
+
+      function showLightboxDialog() {
+        if (lightbox.open) return;
         if (typeof lightbox.showModal === "function") {
           lightbox.showModal();
         } else {
           lightbox.setAttribute("open", "");
         }
         document.documentElement.classList.add("lightbox-open");
+      }
+
+      function updateLightboxImage(index, shouldOpen) {
+        var normalizedIndex = (index + slides.length) % slides.length;
+        var imageDetails = resolveSlideImage(normalizedIndex);
+        var requestId = ++lightboxRequestId;
+
+        activeIndex = normalizedIndex;
+
+        if (!imageDetails.src) return;
+
+        preloadImage(imageDetails.src, function (success) {
+          if (!success || requestId !== lightboxRequestId) return;
+
+          lightboxImg.src = imageDetails.src;
+          lightboxImg.alt = imageDetails.alt;
+
+          if (shouldOpen) {
+            showLightboxDialog();
+          }
+        });
+      }
+
+      function openLightbox(index) {
+        updateLightboxImage(index, true);
       }
 
       function closeLightbox() {
@@ -251,16 +307,42 @@
       }
 
       function showLightboxIndex(index) {
-        index = (index + slides.length) % slides.length;
-        activeIndex = index;
-        var img = slides[index].querySelector("img");
-        lightboxImg.src = img.currentSrc || img.src;
-        lightboxImg.alt = img.alt;
-        scrollToIndex(index);
+        var normalizedIndex = (index + slides.length) % slides.length;
+        updateLightboxImage(normalizedIndex, false);
+        scrollToIndex(normalizedIndex);
       }
 
       slides.forEach(function (slide) {
+        slide.addEventListener("pointerdown", function (event) {
+          slidePointerState.set(slide, {
+            startX: event.clientX,
+            startY: event.clientY,
+            moved: false
+          });
+        });
+
+        slide.addEventListener("pointermove", function (event) {
+          var state = slidePointerState.get(slide);
+          if (!state) return;
+
+          if (Math.abs(event.clientX - state.startX) > 10 || Math.abs(event.clientY - state.startY) > 10) {
+            state.moved = true;
+          }
+        });
+
+        slide.addEventListener("pointercancel", function () {
+          slidePointerState.delete(slide);
+        });
+
         slide.addEventListener("click", function () {
+          var pointerState = slidePointerState.get(slide);
+
+          if (pointerState && pointerState.moved) {
+            slidePointerState.delete(slide);
+            return;
+          }
+
+          slidePointerState.delete(slide);
           openLightbox(Number(slide.getAttribute("data-index")));
         });
       });
